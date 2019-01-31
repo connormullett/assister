@@ -1,9 +1,11 @@
 
 from setuptools import setup
 
+VERSION = '0.1.0'
+
 setup(
         name='assister',
-        version='0.1.0',
+        version=VERSION,
         packages=['assister'],
         entry_points={
             'console_scripts': [
