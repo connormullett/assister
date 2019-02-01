@@ -3,9 +3,11 @@ import sys
 import os
 import csv
 
+TODO_FILE = os.path.dirname(__file__) + '/todo.csv'
+
 
 def get_rows():
-    f = open(os.path.dirname(__file__) + '/todo.csv')
+    f = open(TODO_FILE)
     reader = csv.reader(f, delimiter=',')
     rows = []
     for row in reader:
@@ -13,20 +15,27 @@ def get_rows():
     return rows
 
 
-def todo_create():
-    # helper function for string columns
-    def get_id():
-        rows = get_rows()
-        del rows[0]
-        for i, x in enumerate(rows):
-            if i + 1 != x:
-                return i + 1
+def get_id():
+    rows = get_rows()
+    todo_ids = []
+    for row in rows:
+        todo_ids.append(row[0])
+    del todo_ids[0]
 
-    while True:
-        title = input('Enter title( max 20 )\n>>> ')
-        content = input('Enter Content ( max 50 )\n>>> ')
-        due = input('Enter due date ( yy/mm/dd )\n>>> ')
-        todo_id = get_id()
+    # sort todo_ids
+    return next(a for a, b in enumerate(todo_ids, 1) if a != b)
+
+
+def todo_create():
+
+    # while True:
+    title = input('Enter title( max 20 )\n>>> ')
+    content = input('Enter Content ( max 50 )\n>>> ')
+    due = input('Enter due date ( yy/mm/dd )\n>>> ')
+    todo_id = get_id()
+    with open(TODO_FILE, 'a') as f:
+        writer = csv.writer(f, delimiter=',')
+        writer.writerow([todo_id, title, content, 'false', due])
 
 
 def todo_router(t):
