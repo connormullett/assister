@@ -1,11 +1,38 @@
 
-from .models import todo
+import sys
+import os
+import csv
 
 
-def handler(t):
+def get_rows():
+    f = open(os.path.dirname(__file__) + '/todo.csv')
+    reader = csv.reader(f, delimiter=',')
+    rows = []
+    for row in reader:
+        rows.append(row)
+    return rows
+
+
+def todo_create():
+    # helper function for string columns
+    def get_id():
+        rows = get_rows()
+        del rows[0]
+        for i, x in enumerate(rows):
+            if i + 1 != x:
+                return i + 1
+
+    while True:
+        title = input('Enter title( max 20 )\n>>> ')
+        content = input('Enter Content ( max 50 )\n>>> ')
+        due = input('Enter due date ( yy/mm/dd )\n>>> ')
+        todo_id = get_id()
+
+
+def todo_router(t):
 
     if t.lower() == 'create':
-        print('gonna create a todo')
+        todo_create()
 
     elif t.lower() == 'del':
         pass
@@ -23,7 +50,7 @@ def handler(t):
         pass
 
     elif t.lower() == 'view':
-        pass
+        sys.stdout.write('viewing todos\n')
 
     elif t.lower() == 'get':
         pass

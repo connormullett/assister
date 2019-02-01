@@ -1,6 +1,6 @@
 
 import argparse
-from .todo_handler import handler
+from .todo_handler import todo_router
 # TODO: Add versioning
 
 
@@ -14,7 +14,7 @@ def main():
     print('Entered CLI .. ')
 
     if args.t:
-        handler(args.t)
+        todo_router(args.t)
 
 
 if __name__ == '__main__':
