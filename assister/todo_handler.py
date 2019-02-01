@@ -49,6 +49,13 @@ def todo_create():
     f.close()
 
 
+def view_todos():
+    f = open(TODO_FILE, 'r')
+    for row in f.readlines():
+        print(row.strip('\n'))
+    f.close()
+
+
 def todo_router(t):
 
     if t.lower() == 'create':
@@ -70,7 +77,7 @@ def todo_router(t):
         pass
 
     elif t.lower() == 'view':
-        sys.stdout.write('viewing todos\n')
+        view_todos()
 
     elif t.lower() == 'get':
         pass
