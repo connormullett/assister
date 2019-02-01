@@ -16,14 +16,19 @@ def get_rows():
 
 
 def get_id():
+    # this is garbage im sorry
     rows = get_rows()
-    todo_ids = []
+    _ = []
     for row in rows:
-        todo_ids.append(row[0])
-    del todo_ids[0]
+        _.append(row[0])
+    del _[0]
+    todos = []
+    for i in _:
+        a = int(i)
+        todos.append(a)
 
-    # sort todo_ids
-    return next(a for a, b in enumerate(todo_ids, 1) if a != b)
+    todos = todos.sort()
+    return next(a for a, b in enumerate(todos, 1) if a != b)
 
 
 def todo_create():
