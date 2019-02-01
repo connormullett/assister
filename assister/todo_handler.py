@@ -13,6 +13,7 @@ def get_rows():
     for row in reader:
         rows.append(row)
     return rows
+    f.close()
 
 
 def get_id():
@@ -27,8 +28,11 @@ def get_id():
         a = int(i)
         todos.append(a)
 
-    todos = todos.sort()
-    return next(a for a, b in enumerate(todos, 1) if a != b)
+    # TODO: Deleting rows prevents this from working properly
+    try:
+        return next(a for a, b in enumerate(todos, (len(todos) + 1)) if a != b)
+    except Exception:
+        return 1
 
 
 def todo_create():
@@ -38,9 +42,11 @@ def todo_create():
     content = input('Enter Content ( max 50 )\n>>> ')
     due = input('Enter due date ( yy/mm/dd )\n>>> ')
     todo_id = get_id()
-    with open(TODO_FILE, 'a') as f:
-        writer = csv.writer(f, delimiter=',')
-        writer.writerow([todo_id, title, content, 'false', due])
+
+    f = open(TODO_FILE, 'a')
+    writer = csv.writer(f, delimiter=',')
+    writer.writerow([todo_id, title, content, 'false', due])
+    f.close()
 
 
 def todo_router(t):
