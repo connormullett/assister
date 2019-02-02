@@ -1,4 +1,5 @@
 
+import sys
 import argparse
 from .todo_handler import todo_router
 # TODO: Add versioning
@@ -6,15 +7,18 @@ from .todo_handler import todo_router
 
 parser = argparse.ArgumentParser(description='Productivity without a mouse')
 parser.add_argument('-t', '--todo', help='create a todo', default=None,
-                    action='store', dest='t')
+                    action='store', dest='t', nargs='+')
 args = parser.parse_args()
 
 
 def main():
-    print('Entered CLI .. ')
+
+    if len(args.t) > 1:
+        print(args.t)
+        sys.exit(0)
 
     if args.t:
-        todo_router(args.t)
+        todo_router(args.t[0])
 
 
 if __name__ == '__main__':

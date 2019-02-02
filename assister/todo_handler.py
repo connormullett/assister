@@ -41,14 +41,18 @@ def todo_create():
     f.close()
 
 
-def view_todos():
+def read_todos():
     f = pd.read_csv(TODO_FILE, 'r', delimiter=',')
     df = pd.DataFrame(f)
+    return df
+
+
+def view_todos():
+    df = read_todos()
     print(df.to_string())
 
-
 def todo_delete():
-    print('gonna delete something')
+    pass
 
 
 def todo_router(t):
