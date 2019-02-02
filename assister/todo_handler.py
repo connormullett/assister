@@ -51,37 +51,56 @@ def view_todos():
     df = read_todos()
     print(df.to_string())
 
-def todo_delete():
-    pass
+
+def todo_delete(t):
+    df = read_todos()
+    try:
+        i = int(t)
+    except Exception:
+        print('{} is not a valid row identifier'.format(t))
+        sys.exit(1)
+    print(df.iloc[i].to_string())
+    choice = input('are you sure you want to delete this todo? (y/n)\n')
+    if choice.lower() == 'n':
+        sys.exit(0)
+    elif choice.lower() == 'y':
+        f = open(TODO_FILE, 'w')
+        f.write(df.drop([0]))
+        sys.stdout.write('Succesfully deleted todo\n')
 
 
 def todo_router(t):
+    ''' handles an integer, or a list as an argument
+        then routes accordingly throughout the module '''
 
-    if t.lower() == 'create':
-        todo_create()
+    option_map = ['del', 'mi', 'mc', 'cdue']
 
-    elif t.lower() == 'del':
-        todo_delete()
+    # mapper
+    if type(t) == str:
+        if t in option_map:
+            sys.stdout.write('No id specified\n')
 
-    elif t.lower() == 'update':
-        pass
+    # no args for -t
+    if type(t) == str:
+        if t.lower() == 'create':
+            todo_create()
+        elif t.lower() == 'update':
+            pass
+        elif t.lower() == 'view':
+            view_todos()
 
-    elif t.lower() == 'mc':
-        pass
+    # args for -t
+    # pass t[1] to these functions
+    if type(t) == list:
 
-    elif t.lower() == 'mi':
-        pass
-
-    elif t.lower() == 'cdue':
-        pass
-
-    elif t.lower() == 'view':
-        view_todos()
-
-    elif t.lower() == 'get':
-        pass
-
-    else:
-        print('unknown argument')
-
+        if t[0] == 'del':
+            todo_delete(t[1])
+        elif t[0] == 'mi':
+            pass
+        elif t[0] == 'mc':
+            pass
+        elif t[0] == 'cdue':
+            pass
+        else:
+            print('unknown argument')
 

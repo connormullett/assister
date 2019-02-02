@@ -1,5 +1,4 @@
 
-import sys
 import argparse
 from .todo_handler import todo_router
 # TODO: Add versioning
@@ -14,8 +13,7 @@ args = parser.parse_args()
 def main():
 
     if len(args.t) > 1:
-        print(args.t)
-        sys.exit(0)
+        todo_router(args.t)
 
     if args.t:
         todo_router(args.t[0])
