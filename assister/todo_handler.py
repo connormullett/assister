@@ -65,7 +65,8 @@ def todo_delete(t):
         sys.exit(0)
     elif choice.lower() == 'y':
         f = open(TODO_FILE, 'w')
-        f.write(df.drop([0]))
+        # TODO: this crap needs to be in csv format
+        f.write(df.drop([0]).to_string())
         sys.stdout.write('Succesfully deleted todo\n')
 
 
@@ -73,19 +74,18 @@ def todo_router(t):
     ''' handles an integer, or a list as an argument
         then routes accordingly throughout the module '''
 
-    option_map = ['del', 'mi', 'mc', 'cdue']
+    id_option_map = ['del', 'mi', 'mc', 'cdue', 'update']
 
     # mapper
     if type(t) == str:
-        if t in option_map:
+        if t in id_option_map:
             sys.stdout.write('No id specified\n')
+            sys.exit(0)
 
     # no args for -t
     if type(t) == str:
         if t.lower() == 'create':
             todo_create()
-        elif t.lower() == 'update':
-            pass
         elif t.lower() == 'view':
             view_todos()
 
@@ -100,6 +100,8 @@ def todo_router(t):
         elif t[0] == 'mc':
             pass
         elif t[0] == 'cdue':
+            pass
+        elif t[0] == 'update':
             pass
         else:
             print('unknown argument')

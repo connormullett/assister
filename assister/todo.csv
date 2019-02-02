@@ -1,3 +1,3 @@
-title, content, complete, due
-test,testing,false,12/12/12
-testing again,testing with long titles,false,12/12/12
+Empty DataFrame
+Columns: [title,  content,  complete,  due]
+Index: []test,test again,false,12/12/12
