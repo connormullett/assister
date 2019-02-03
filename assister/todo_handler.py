@@ -64,9 +64,19 @@ def todo_delete(t):
     if choice.lower() == 'n':
         sys.exit(0)
     elif choice.lower() == 'y':
-        f = open(TODO_FILE, 'w')
-        # TODO: this crap needs to be in csv format
-        f.write(df.drop([0]).to_string())
+
+        # drop headers
+        df.drop([i])
+
+        # open todo file
+        # and write rows
+        with open(TODO_FILE, 'r') as inp, open(TODO_FILE, 'w') as out:
+            writer = csv.writer(out)
+            writer.writerow(['title', 'content', 'complete', 'due'])
+            for row in csv.reader(inp):
+                if row[0] != str(i):
+                    writer.writerow(row)
+
         sys.stdout.write('Succesfully deleted todo\n')
 
 
@@ -74,20 +84,15 @@ def todo_router(t):
     ''' handles an integer, or a list as an argument
         then routes accordingly throughout the module '''
 
-    id_option_map = ['del', 'mi', 'mc', 'cdue', 'update']
-
-    # mapper
-    if type(t) == str:
-        if t in id_option_map:
-            sys.stdout.write('No id specified\n')
-            sys.exit(0)
-
     # no args for -t
     if type(t) == str:
         if t.lower() == 'create':
             todo_create()
         elif t.lower() == 'view':
             view_todos()
+        elif t.lower() == 'reset':
+            # os.system( run install.sh )
+            pass
 
     # args for -t
     # pass t[1] to these functions
