@@ -11,10 +11,13 @@ Python CLI Tool to simplify computing and enhance productivity
 ## Prerequisites
 - Git
 - Python3
+- virtualenv
 
 ## Install
 - `git clone https://github.com/connormullett/assister.git`
 - `cd assister`
+- `virtualenv -p {/path/to/python3} venv`
+- `source venv/bin/activate`
 - `sudo install.sh`
 
 Running the install steps will allow you to call `assister` from your terminal
