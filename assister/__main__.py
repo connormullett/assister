@@ -1,5 +1,6 @@
 
 import argparse
+import sys
 from .todo_handler import todo_router
 # TODO: Add versioning
 
@@ -11,6 +12,11 @@ args = parser.parse_args()
 
 
 def main():
+
+    if args.t is None:
+        sys.stdout.write('No Arguments given\n' +
+                         'Use assister -h for commands\n')
+        sys.exit(0)
 
     if len(args.t) > 1:
         todo_router(args.t)
