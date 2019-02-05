@@ -6,28 +6,20 @@ import pandas as pd
 import pkg_resources
 
 
-
-# MAKE THIS A CLASS, __del__ maybe and __add__
-
-
 class WriteOut:
-    '''use stdout to write to the console'''
-    def __init__():
-        pass
 
-    def write_error(self, err):
-        sys.stdout.write(err)
-        sys.exit(1)
-
-    def write_success(self, msg):
-        sys.stdout.write(msg)
-        sys.exit(0)
+    '''Exit code = 0 == OK
+       1 == Bad'''
+    def __call__(self, msg, code):
+        sys.stdout.write(msg + '\n')
+        sys.exit(code)
+        # I can implement logging here if error code is 1
 
 
 class ReadOut:
 
-    def reader(self, msg):
-        i = input(msg)
+    def __call__(self, msg):
+        i = input(msg + '\n>>> ')
         return i
 
 
@@ -36,42 +28,47 @@ class TodoService:
     def __init__(self):
         path = 'todo.csv'
         self.todo_file = pkg_resources.resource_filename(__name__, path)
-        print(self.todo_file)
+        self.r = ReadOut()
+        self.w = WriteOut()
 
     # This needs to not have any input or stdout
     # for testing reasons
     def todo_create(self):
 
         while True:
-            title = input('Enter title( max 20 )\n>>> ')
+            title = self.r('Enter title (max 20 characters)')
             if len(title) > 20:
                 continue
             else:
                 break
         while True:
-            content = input('Enter Content ( max 50 )\n>>> ')
+            content = self.r('Enter todo body (max 50 characters)')
             if len(content) > 50:
                 continue
             else:
                 break
         while True:
-            due = input('Enter due date ( yy/mm/dd )\n>>> ')
+            due = self.r('Enter due date (YY/MM/DD)')
             _ = due.split('/')
             i = [int(a) for a in _]
             for d in i:
                 if len(str(abs(d))) != 2:
                     continue
+            # check if i[0] starts with 2
             if i[1] > 12:
                 continue
             if i[2] > 31:
                 continue
             break
 
-        f = open(self.todo_file, 'a')
-        writer = csv.writer(f, delimiter=',')
-        writer.writerow([title, content, 'false', due])
-        sys.stdout.write('todo created successfully\n')
-        f.close()
+        try:
+            f = open(self.todo_file, 'a')
+            writer = csv.writer(f, delimiter=',')
+            writer.writerow([title, content, 'false', due])
+            self.w('Todo created successfully', 0)
+            f.close()
+        except Exception:
+            self.w('An Error has occured\nReinstall the program or run reset', 1)
 
 
     def read_todos(self):
@@ -84,14 +81,14 @@ class TodoService:
     def view_todos(self):
         df = self.read_todos()
         if not df.empty:
-            print(df.to_string())
+            self.w(df.to_string(), 0)
         else:
-            print('No Todos')
+            self.w('No Todos', 0)
 
 
     def todo_delete(self, t):
 
-        df = read_todos()
+        df = self.read_todos()
         try:
             i = int(t)
         except Exception:
@@ -100,7 +97,7 @@ class TodoService:
 
         try:
             print(df.iloc[i].to_string())
-            choice = input('are you sure you want to delete this todo? (y/n)\n')
+            choice = self.r('are you sure you want to delete this todo? (y/n)')
         except Exception:
             sys.stdout.write('Invalid ID\n')
             sys.exit(0)
@@ -146,7 +143,7 @@ class TodoRouter():
 
     def todo_arg_router(self):
         if self.t[0] == 'del':
-            self.service.todo_delete(selft[1])
+            self.service.todo_delete(self.t[1])
         elif self.t[0] == 'mi':
             pass
         elif self.t[0] == 'mc':
