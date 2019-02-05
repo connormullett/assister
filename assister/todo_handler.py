@@ -7,6 +7,8 @@ import pandas as pd
 TODO_FILE = os.path.dirname(__file__) + '/todo.csv'
 
 
+# MAKE THIS A CLASS, __del__ maybe and __add__
+
 def todo_create():
 
     while True:
@@ -82,34 +84,43 @@ def todo_delete(t):
                 f.write(row)
 
 
-def todo_router(t):
-    ''' handles an integer, or a list as an argument
-        then routes accordingly throughout the module '''
+class TodoRouter():
 
-    # no args for -t
-    if type(t) == str:
-        if t.lower() == 'create':
+    def __init__(self, t):
+        self.t = t
+
+    def __call__(self):
+        if len(self.t) > 1:
+            self.todo_arg_router()
+        else:
+            self.router(self.t[0])
+
+    def router(self, a):
+        if a == 'create':
             todo_create()
-        elif t.lower() == 'view':
+        elif a == 'view':
             view_todos()
-        elif t.lower() == 'reset':
-            # os.system( run install.sh )
+        elif a == 'reset':
+            # TODO: os.system( run install.sh )
             pass
+        else:
+            print('Unknown argument\n' +
+                  'Use assister -h for commands')
 
     # args for -t
     # pass t[1] to these functions
-    if type(t) == list:
-
-        if t[0] == 'del':
+    def todo_arg_router(self):
+        if self.t[0] == 'del':
             todo_delete(t[1])
-        elif t[0] == 'mi':
+        elif self.t[0] == 'mi':
             pass
-        elif t[0] == 'mc':
+        elif self.t[0] == 'mc':
             pass
-        elif t[0] == 'cdue':
+        elif self.t[0] == 'cdue':
             pass
-        elif t[0] == 'update':
+        elif self.t[0] == 'update':
             pass
         else:
-            print('unknown argument')
+            print('unknown argument\n' +
+                  'Use assister -h for commands')
 
