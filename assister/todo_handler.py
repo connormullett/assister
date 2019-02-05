@@ -3,8 +3,8 @@ import sys
 import os
 import csv
 import pandas as pd
+import pkg_resources
 
-TODO_FILE = os.path.dirname(__file__) + '/todo.csv'
 
 
 # MAKE THIS A CLASS, __del__ maybe and __add__
@@ -26,13 +26,21 @@ class WriteOut:
 
 class ReadOut:
 
-    def reader(self, msg)
+    def reader(self, msg):
         i = input(msg)
         return i
 
 
 class TodoService:
-    def todo_create():
+
+    def __init__(self):
+        path = 'todo.csv'
+        self.todo_file = pkg_resources.resource_filename(__name__, path)
+        print(self.todo_file)
+
+    # This needs to not have any input or stdout
+    # for testing reasons
+    def todo_create(self):
 
         while True:
             title = input('Enter title( max 20 )\n>>> ')
@@ -54,33 +62,34 @@ class TodoService:
                 if len(str(abs(d))) != 2:
                     continue
             if i[1] > 12:
-            continue
-        if i[2] > 31:
-            continue
-        break
+                continue
+            if i[2] > 31:
+                continue
+            break
 
-        f = open(TODO_FILE, 'a')
+        f = open(self.todo_file, 'a')
         writer = csv.writer(f, delimiter=',')
         writer.writerow([title, content, 'false', due])
         sys.stdout.write('todo created successfully\n')
         f.close()
 
 
-    def read_todos():
-        f = pd.read_csv(TODO_FILE, 'r', delimiter=',')
+    def read_todos(self):
+        f = pd.read_csv(self.todo_file, 'r', delimiter=',')
         df = pd.DataFrame(f)
         return df
 
 
-    def view_todos():
-        df = read_todos()
+    # Need a todo Class for __repr__ and potential formatting, would b ez
+    def view_todos(self):
+        df = self.read_todos()
         if not df.empty:
             print(df.to_string())
         else:
             print('No Todos')
 
 
-    def todo_delete(t):
+    def todo_delete(self, t):
 
         df = read_todos()
         try:
@@ -98,11 +107,11 @@ class TodoService:
         if choice.lower() == 'n':
             sys.exit(0)
         elif choice.lower() == 'y':
-            with open(TODO_FILE, 'r') as f:
+            with open(self.todo_file, 'r') as f:
                 rows = f.readlines()
                 del rows[i + 1]
 
-            with open(TODO_FILE, 'w') as f:
+            with open(self.todo_file, 'w') as f:
                 for row in rows:
                     f.write(row)
             sys.stdout.write('Todo Deleted Successfully\n')
@@ -112,6 +121,7 @@ class TodoRouter():
 
     def __init__(self, t):
         self.t = t
+        self.service = TodoService()
 
     def __call__(self):
         if len(self.t) > 1:
@@ -119,13 +129,14 @@ class TodoRouter():
         else:
             self.router(self.t[0])
 
+
     # Refactor to function map indexing
     # if a in arg_router_map ... where map is a dict
     def router(self, a):
         if a == 'create':
-            todo_create()
+            self.service.todo_create()
         elif a == 'view':
-            view_todos()
+            self.service.view_todos()
         elif a == 'reset':
             # TODO: os.system( run install.sh )
             pass
@@ -135,7 +146,7 @@ class TodoRouter():
 
     def todo_arg_router(self):
         if self.t[0] == 'del':
-            todo_delete(selft[1])
+            self.service.todo_delete(selft[1])
         elif self.t[0] == 'mi':
             pass
         elif self.t[0] == 'mc':
