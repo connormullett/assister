@@ -49,35 +49,37 @@ def read_todos():
 
 def view_todos():
     df = read_todos()
-    print(df.to_string())
+    if not df.empty:
+        print(df.to_string())
+    else:
+        print('No Todos')
 
 
 def todo_delete(t):
+
     df = read_todos()
     try:
         i = int(t)
     except Exception:
         print('{} is not a valid row identifier'.format(t))
-        sys.exit(1)
-    print(df.iloc[i].to_string())
-    choice = input('are you sure you want to delete this todo? (y/n)\n')
+        sys.exit(0)
+
+    try:
+        print(df.iloc[i].to_string())
+        choice = input('are you sure you want to delete this todo? (y/n)\n')
+    except Exception:
+        sys.stdout.write('Invalid ID\n')
+        sys.exit(0)
     if choice.lower() == 'n':
         sys.exit(0)
     elif choice.lower() == 'y':
+        with open(TODO_FILE, 'r') as f:
+            rows = f.readlines()
+            del rows[i + 1]
 
-        # drop headers
-        df.drop([i])
-
-        # open todo file
-        # and write rows
-        with open(TODO_FILE, 'r') as inp, open(TODO_FILE, 'w') as out:
-            writer = csv.writer(out)
-            writer.writerow(['title', 'content', 'complete', 'due'])
-            for row in csv.reader(inp):
-                if row[0] != str(i):
-                    writer.writerow(row)
-
-        sys.stdout.write('Succesfully deleted todo\n')
+        with open(TODO_FILE, 'w') as f:
+            for row in rows:
+                f.write(row)
 
 
 def todo_router(t):
