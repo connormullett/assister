@@ -8,12 +8,9 @@ import pkg_resources
 
 class WriteOut:
 
-    '''Exit code = 0 == OK
-       1 == Bad'''
     def __call__(self, msg, code):
         sys.stdout.write(msg + '\n')
         sys.exit(code)
-        # I can implement logging here if error code is 1
 
 
 class ReadOut:
@@ -31,8 +28,6 @@ class TodoService:
         self.r = ReadOut()
         self.w = WriteOut()
 
-    # This needs to not have any input or stdout
-    # for testing reasons
     def todo_create(self):
 
         while True:
@@ -54,7 +49,6 @@ class TodoService:
             for d in i:
                 if len(str(abs(d))) != 2:
                     continue
-            # check if i[0] starts with 2
             if i[1] > 12:
                 continue
             if i[2] > 31:
