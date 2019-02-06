@@ -139,17 +139,14 @@ class TodoRouter():
                   'Use assister -h for commands')
 
     def todo_arg_router(self):
-        if self.t[0] == 'del':
-            self.service.todo_delete(self.t[1])
-        elif self.t[0] == 'mi':
-            pass
-        elif self.t[0] == 'mc':
-            pass
-        elif self.t[0] == 'cdue':
-            pass
-        elif self.t[0] == 'update':
-            pass
-        else:
+        function_mapper = {
+                    'del': self.service.todo_delete,
+                    # mi, update, mc, cdue
+                }
+        try:
+            b = function_mapper[self.t[0]]
+            b(self.t[1])
+        except Exception:
             print('unknown argument\n' +
                   'Use assister -h for commands')
 
