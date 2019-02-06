@@ -126,18 +126,15 @@ class TodoRouter():
         else:
             self.router(self.t[0])
 
-
-    # Refactor to function map indexing
-    # if a in arg_router_map ... where map is a dict
     def router(self, a):
-        if a == 'create':
-            self.service.todo_create()
-        elif a == 'view':
-            self.service.view_todos()
-        elif a == 'reset':
-            # TODO: os.system( run install.sh )
-            pass
-        else:
+        function_mapper = {
+                    'create': self.service.todo_create,
+                    'view': self.service.view_todos,
+                }
+        try:
+            b = function_mapper[a]
+            b()
+        except Exception:
             print('Unknown argument\n' +
                   'Use assister -h for commands')
 
