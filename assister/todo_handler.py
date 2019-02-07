@@ -4,7 +4,7 @@ import os
 import csv
 import pandas as pd
 import pkg_resources
-
+# TODO: Refactor to remove Pandas
 
 class WriteOut:
 
