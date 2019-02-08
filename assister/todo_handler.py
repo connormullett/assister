@@ -4,13 +4,28 @@ import os
 import csv
 import pandas as pd
 import pkg_resources
-# TODO: Refactor to remove Pandas
+import time
+
+from datetime import datetime
+
 
 class WriteOut:
 
     def __call__(self, msg, code):
         sys.stdout.write(msg + '\n')
         sys.exit(code)
+
+
+class Todo:
+
+    def __init__(self, title, content, complete, due: str):
+        self.title = title
+        self.content = content
+        self.complete = complete
+        self.due = due
+
+    def __repr__(self):
+        return self.title, self.content, self.complete, self.due
 
 
 class ReadOut:
@@ -42,42 +57,36 @@ class TodoService:
                 continue
             else:
                 break
-        while True:
-            due = self.r('Enter due date (YY/MM/DD)')
-            _ = due.split('/')
-            i = [int(a) for a in _]
-            for d in i:
-                if len(str(abs(d))) != 2:
-                    continue
-            if i[1] > 12:
-                continue
-            if i[2] > 31:
-                continue
-            break
+
+        # TODO: Add handling for dates with errors
+        due = self.r('Enter due date (DD/MM/YYYY)')
 
         try:
-            f = open(self.todo_file, 'a')
-            writer = csv.writer(f, delimiter=',')
-            writer.writerow([title, content, 'false', due])
-            self.w('Todo created successfully', 0)
-            f.close()
+            with open(self.todo_file, 'a') as f:
+                t = Todo(title, content, False, due)
+                writer = csv.writer(f, delimiter=',')
+                writer.writerow(t.__repr__())
+                self.w('Todo created successfully', 0)
+                f.close()
         except Exception:
             self.w('An Error has occured\nReinstall the program or run reset', 1)
 
 
     def read_todos(self):
-        f = pd.read_csv(self.todo_file, 'r', delimiter=',')
-        df = pd.DataFrame(f)
-        return df
+        with open(self.todo_file, 'r') as f:
+            _ = f.readlines()
+            todos = []
+            del _[0]
+            for todo in _:
+                todo = todo.rstrip()
+                todos.append(todo)
+            return todos
 
 
-    # Need a todo Class for __repr__ and potential formatting, would b ez
     def view_todos(self):
-        df = self.read_todos()
-        if not df.empty:
-            self.w(df.to_string(), 0)
-        else:
-            self.w('No Todos', 0)
+        todos = self.read_todos()
+        # TODO: Print todos from objects
+        self.w(str(todos), 0)
 
 
     def todo_delete(self, t):
@@ -113,6 +122,7 @@ class TodoRouter():
     def __init__(self, t):
         self.t = t
         self.service = TodoService()
+        self.w = WriteOut()
 
     def __call__(self):
         if len(self.t) > 1:
@@ -128,9 +138,10 @@ class TodoRouter():
         try:
             b = function_mapper[a]
             b()
-        except Exception:
-            print('Unknown argument\n' +
-                  'Use assister -h for commands')
+        except Exception as e:
+            self.w('An Error Occured, {}'.format(e), 1)
+        self.w('No Command Found\n' +
+               'Use -h for help', 0)
 
     def todo_arg_router(self):
         function_mapper = {
