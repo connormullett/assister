@@ -34,8 +34,10 @@ You will also have a new `todo.csv` file in the project base directory. This wil
     - `view` - view todos
     - `del {todo_id}` - delete todo by id
     - `create` - create a todo using a series of prompts
+    - `mc {todo_id}` - mark todo complete
+    - `mi {todo_id}` - mark todo incomplete
 
 ### Upcoming commands
- - mark complete / incomplete
+ - incomplete
  - update elements
 

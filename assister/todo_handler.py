@@ -54,6 +54,16 @@ class TodoService:
         self.delete_row(int(todo_id))
         self.write_row(todo)
 
+    def mark_incomplete(self, todo_id):
+        todos = self.read_todos()
+        todo_str = todos[int(todo_id)]
+        title, content, complete, due = todo_str.split(',')
+        todo = Todo(title, content, bool(complete), due)
+        todo.complete = False
+        self.delete_row(int(todo_id))
+        print(todo.__repr__())
+        self.write_row(todo)
+
     def todo_create(self):
 
         while True:
@@ -160,6 +170,7 @@ class TodoRouter():
         function_mapper = {
                     'del': self.service.todo_delete,
                     'mc': self.service.mark_complete,
+                    'mi': self.service.mark_incomplete,
                     # change the due date
                     # update anything else
                 }
