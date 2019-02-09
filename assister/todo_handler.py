@@ -27,7 +27,7 @@ class Todo:
 
     def __repr__(self):
         # TODO: reformat timestamp to datetime
-        return (self.title, self.content, self.complete, time.ctime(self.due))
+        return self.title, self.content, self.complete, time.ctime(self.due)
 
 
 class ReadOut:
@@ -65,13 +65,13 @@ class TodoService:
 
         try:
             with open(self.todo_file, 'a') as f:
-                t = Todo(title, content, False, due)
                 writer = csv.writer(f, delimiter=',')
-                writer.writerow(t.__repr__())
+                t = str(title, content, False, complete)
+                writer.writerow(t)
                 self.w('Todo created successfully', 0)
                 f.close()
-        except Exception:
-            self.w('An Error has occured\nReinstall the program or run reset', 1)
+        except Exception as e:
+            self.w('An Error has occured' + e + '\nReinstall the program or run reset', 1)
 
 
     def read_todos(self):
