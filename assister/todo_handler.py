@@ -44,6 +44,8 @@ class TodoService:
         self.r = ReadOut()
         self.w = WriteOut()
 
+    # TODO: Refactor into 1 method
+    # pass in the argument mc/mi with the id
     def mark_complete(self, todo_id):
         todos = self.read_todos()
         todo_str = todos[int(todo_id)]
