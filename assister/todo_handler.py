@@ -111,7 +111,7 @@ class TodoService:
         try:
             choice = self.r('are you sure you want to delete this todo? (y/n)')
         except Exception as e:
-            self.w('Invalid ID'\n, 1)
+            self.w('Invalid ID\n', 1)
         if choice.lower() == 'n':
             sys.exit(0)
         elif choice.lower() == 'y':
