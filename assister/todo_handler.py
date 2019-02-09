@@ -23,7 +23,10 @@ class Todo:
         self.title = title
         self.content = content
         self.complete = complete
-        self.due = due
+        self.due = self.parse_due_time(due)
+
+    def parse_due_time(self, due):
+        due = time.mktime(datetime.strptime(due, '%d/%m/%Y').timetuple())
 
     def __repr__(self):
         # TODO: reformat timestamp to datetime
@@ -66,8 +69,9 @@ class TodoService:
         try:
             with open(self.todo_file, 'a') as f:
                 writer = csv.writer(f, delimiter=',')
-                t = str(title, content, False, complete)
-                writer.writerow(t)
+                # t = str((title, content, False, due))
+                t = Todo(title, content, False, due)
+                writer.writerow(t.__repr__())
                 self.w('Todo created successfully', 0)
                 f.close()
         except Exception as e:
