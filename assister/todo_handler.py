@@ -100,14 +100,14 @@ class TodoService:
 
     def todo_delete(self, t):
 
-        df = self.read_todos()
+        todos = self.read_todos()
         try:
             i = int(t)
         except Exception:
             print('{} is not a valid row identifier'.format(t))
             sys.exit(0)
 
-        print(todo[i])
+        self.w(todos[i])
         try:
             choice = self.r('are you sure you want to delete this todo? (y/n)')
         except Exception as e:
@@ -155,10 +155,10 @@ class TodoRouter():
                     'del': self.service.todo_delete,
                     # mi, update, mc, cdue
                 }
-        try:
-            b = function_mapper[self.t[0]]
-            b(self.t[1])
-        except Exception:
-            print('unknown argument\n' +
-                  'Use assister -h for commands')
+        # try:
+        b = function_mapper[self.t[0]]
+        b(self.t[1])
+        # except Exception:
+        #     print('unknown argument\n' +
+        #           'Use assister -h for commands')
 
