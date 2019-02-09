@@ -29,7 +29,7 @@ class Todo:
         due = time.mktime(datetime.strptime(due, '%d/%m/%Y').timetuple())
 
     def __repr__(self):
-        # TODO: reformat timestamp to datetime
+        # TODO: format due datetime format
         return self.title, self.content, self.complete, time.ctime(self.due)
 
 
@@ -91,7 +91,6 @@ class TodoService:
 
     def view_todos(self):
         todos = self.read_todos()
-        # TODO: Print todos from objects
         for todo in todos:
             t = todo.__repr__().split(',')
             t[0] = t[0].replace("'", '')
@@ -108,12 +107,11 @@ class TodoService:
             print('{} is not a valid row identifier'.format(t))
             sys.exit(0)
 
+        print(todo[i])
         try:
-            print(df.iloc[i].to_string())
             choice = self.r('are you sure you want to delete this todo? (y/n)')
-        except Exception:
-            sys.stdout.write('Invalid ID\n')
-            sys.exit(0)
+        except Exception as e:
+            self.w('Invalid ID'\n, 1)
         if choice.lower() == 'n':
             sys.exit(0)
         elif choice.lower() == 'y':
@@ -124,8 +122,7 @@ class TodoService:
             with open(self.todo_file, 'w') as f:
                 for row in rows:
                     f.write(row)
-            sys.stdout.write('Todo Deleted Successfully\n')
-
+                self.w('Todo Deleted succesfully', 0)
 
 class TodoRouter():
 
