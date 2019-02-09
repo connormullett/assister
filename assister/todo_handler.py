@@ -19,18 +19,14 @@ class WriteOut:
 
 class Todo:
 
-    def __init__(self, title, content, complete, due: str):
+    def __init__(self, title, content, complete, due):
         self.title = title
         self.content = content
         self.complete = complete
-        self.due = self.parse_due_time(due)
-
-    def parse_due_time(self, due):
-        due = time.mktime(datetime.strptime(due, '%d/%m/%Y').timetuple())
+        self.due = due
 
     def __repr__(self):
-        # TODO: format due datetime format
-        return self.title, self.content, self.complete, time.ctime(self.due)
+        return self.title, self.content, self.complete, self.due
 
 
 class ReadOut:
@@ -47,6 +43,16 @@ class TodoService:
         self.todo_file = pkg_resources.resource_filename(__name__, path)
         self.r = ReadOut()
         self.w = WriteOut()
+
+    def mark_complete(self, todo_id):
+        todos = self.read_todos()
+        todo_str = todos[int(todo_id)]
+        title, content, complete, due = todo_str.split(',')
+        todo = Todo(title, content, bool(complete), due)
+        todo.complete = True
+        self.w('Todo marked complete')
+        self.delete_row(int(todo_id))
+        self.write_row(todo)
 
     def todo_create(self):
 
@@ -65,14 +71,14 @@ class TodoService:
 
         # TODO: Add handling for dates with errors
         due = self.r('Enter due date (DD/MM/YYYY)')
+        t = Todo(title, content, False, due)
+        self.write_row(t)
 
+    def write_row(self, t):
         try:
             with open(self.todo_file, 'a') as f:
                 writer = csv.writer(f, delimiter=',')
-                t = Todo(title, content, False, due)
                 writer.writerow(t.__repr__())
-                self.w('Todo created successfully', 0)
-                f.close()
         except Exception as e:
             self.w('An Error has occured' + e + '\nReinstall the program or run reset', 1)
 
@@ -114,14 +120,17 @@ class TodoService:
         if choice.lower() == 'n':
             sys.exit(0)
         elif choice.lower() == 'y':
-            with open(self.todo_file, 'r') as f:
-                rows = f.readlines()
-                del rows[i + 1]
+            self.delete_row(i)
 
-            with open(self.todo_file, 'w') as f:
-                for row in rows:
-                    f.write(row)
-                self.w('Todo Deleted succesfully', 0)
+
+    def delete_row(self, i):
+        with open(self.todo_file, 'r') as f:
+            rows = f.readlines()
+            del rows[i + 1]
+
+        with open(self.todo_file, 'w') as f:
+            for row in rows:
+                f.write(row)
 
 class TodoRouter():
 
@@ -146,13 +155,11 @@ class TodoRouter():
             b()
         except Exception as e:
             self.w('An Error Occured, {}'.format(e), 1)
-        self.w('No Command Found\n' +
-               'Use -h for help', 0)
 
     def todo_arg_router(self):
         function_mapper = {
                     'del': self.service.todo_delete,
-                    # mark complete/incomplete
+                    'mc': self.service.mark_complete,
                     # change the due date
                     # update anything else
                 }
