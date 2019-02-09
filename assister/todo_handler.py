@@ -92,8 +92,7 @@ class TodoService:
             t = todo.__repr__().split(',')
             t[0] = t[0].replace("'", '')
             t[-1] = t[-1].replace("'", '')
-
-            print(t)
+            self.w(f'{t[0]}\t{t[1]}\t\t{t[2]}\t{t[3]}')
         self.w('', 0)
 
     def todo_delete(self, t):
