@@ -69,7 +69,6 @@ class TodoService:
         try:
             with open(self.todo_file, 'a') as f:
                 writer = csv.writer(f, delimiter=',')
-                # t = str((title, content, False, due))
                 t = Todo(title, content, False, due)
                 writer.writerow(t.__repr__())
                 self.w('Todo created successfully', 0)
@@ -91,11 +90,11 @@ class TodoService:
 
     def view_todos(self):
         todos = self.read_todos()
-        for todo in todos:
+        for i, todo in enumerate(todos):
             t = todo.__repr__().split(',')
             t[0] = t[0].replace("'", '')
             t[-1] = t[-1].replace("'", '')
-            self.w(f'{t[0]}\t{t[1]}\t\t{t[2]}\t{t[3]}')
+            self.w(f'{i}\t{t[0]}\t{t[1]}\t\t{t[2]}\t{t[3]}')
         self.w('', 0)
 
     def todo_delete(self, t):
@@ -153,12 +152,10 @@ class TodoRouter():
     def todo_arg_router(self):
         function_mapper = {
                     'del': self.service.todo_delete,
-                    # mi, update, mc, cdue
+                    # mark complete/incomplete
+                    # change the due date
+                    # update anything else
                 }
-        # try:
         b = function_mapper[self.t[0]]
         b(self.t[1])
-        # except Exception:
-        #     print('unknown argument\n' +
-        #           'Use assister -h for commands')
 
