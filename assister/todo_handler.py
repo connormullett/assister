@@ -11,9 +11,10 @@ from datetime import datetime
 
 class WriteOut:
 
-    def __call__(self, msg, code):
+    def __call__(self, msg, code=None):
         sys.stdout.write(msg + '\n')
-        sys.exit(code)
+        if code is 0 or code:
+            sys.exit(code)
 
 
 class Todo:
@@ -25,7 +26,8 @@ class Todo:
         self.due = due
 
     def __repr__(self):
-        return self.title, self.content, self.complete, self.due
+        # TODO: reformat timestamp to datetime
+        return (self.title, self.content, self.complete, time.ctime(self.due))
 
 
 class ReadOut:
@@ -86,8 +88,13 @@ class TodoService:
     def view_todos(self):
         todos = self.read_todos()
         # TODO: Print todos from objects
-        self.w(str(todos), 0)
+        for todo in todos:
+            t = todo.__repr__().split(',')
+            t[0] = t[0].replace("'", '')
+            t[-1] = t[-1].replace("'", '')
 
+            print(t)
+        self.w('', 0)
 
     def todo_delete(self, t):
 
