@@ -2,7 +2,6 @@
 import sys
 import os
 import csv
-import pandas as pd
 import pkg_resources
 import time
 
@@ -152,6 +151,8 @@ class TodoRouter():
         self.w = WriteOut()
 
     def __call__(self):
+        if self.t is None:
+            self.w('Use assister -h for commands', 0)
         if len(self.t) > 1:
             self.todo_arg_router()
         else:
