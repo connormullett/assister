@@ -9,7 +9,10 @@ class ApiRouter:
 
     def __init__(self, a):
         self.a = a
-        self.service = ApiService()
+        if len(a) == 3:
+            self.service = ApiService(self.a[0], self.a[1], self.a[2])
+        else:
+            self.service = ApiService(self.a[0], self.a[1])
         self.w = WriteOut()
 
 
@@ -18,6 +21,6 @@ class ApiRouter:
     def __call__(self):
         if self.a is None:
             self.w('Use assister -h for commands', 0)
-        self.service(self.a[0], self.a[1])
+        self.service()
 
 
