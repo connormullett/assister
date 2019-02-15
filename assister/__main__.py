@@ -1,11 +1,12 @@
 
 import argparse
 import sys
+import pkg_resources
 
 from .api_requester.api_router import ApiRouter
-
 from .todos.todo_router import TodoRouter
 
+VERSION = pkg_resources.require('assister')[0].version
 
 parser = argparse.ArgumentParser(description='Productivity without a mouse')
 parser.add_argument('command', default=None, action='store', nargs='+')
@@ -20,7 +21,7 @@ command_mapper = {
         }
 
 if command == 'version':
-    sys.stdout.write('0.2.0\n')
+    sys.stdout.write(f'{VERSION}\n')
     exit(0)
 
 r = command_mapper[command]
