@@ -12,8 +12,6 @@ class ApiRouter:
         self.service = ApiService(self.a[0], self.a[1])
 
 
-    # TODO: manage post, get, put, del requests
-    # for now only manage get requests (public API's)
     def __call__(self):
         if self.a is None:
             self.w('Use assister -h for commands', 0)

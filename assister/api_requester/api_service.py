@@ -1,15 +1,16 @@
 
 import requests
+import json
 from ..base_models import WriteOut, ReadOut
 
 class ApiService:
 
-    def __init__(self, request_method, base_url, headers=None):
+    def __init__(self, request_method, url, headers=None):
         self.w = WriteOut()
         self.r = ReadOut()
 
         self.request_method = request_method
-        self.base_url = base_url
+        self.url = url
 
         if headers:
             self.headers = headers
@@ -27,7 +28,9 @@ class ApiService:
         m()
 
     def get(self):
-        pass
+        response = requests.get(self.url)
+        r = json.loads(response.text)
+        self.w(json.dumps(r, indent=4, sort_keys=True), 0)
 
     def post(self):
         pass
