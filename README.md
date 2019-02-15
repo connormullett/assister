@@ -15,24 +15,12 @@ Python CLI Tool to simplify computing and enhance productivity
 
 ## Install
 
-### Linux and macOS
-
 - `git clone https://github.com/connormullett/assister.git`
 - `cd assister`
-- `virtualenv -p {/path/to/python3} venv`
-- `source venv/bin/activate`
-- `sh install.sh`
+- `sudo python3 setup.py install`
+- `sudo pip3 install -e .`
 
-### Windows
-Perform the following commands in PowerShell
-- `git clone https://github.com/connormullett/assister.git`
-- `cd assister`
-- `python3 -m venv venv`
-- `./venv/Scripts/activate.ps1`
-- `./windows-install.sh`
 
-### Dependancies are currently in the process of being removed and will
-### no longer need a virtualenv
 
 Running the install steps will allow you to call `assister` from your terminal
 You will also have a new `todo.csv` file in the project base directory. This will hold all of the todos
@@ -49,6 +37,7 @@ You will also have a new `todo.csv` file in the project base directory. This wil
     - `mi {todo_id}` - mark todo incomplete
 
 ### Upcoming commands
- - incomplete
- - update elements
+-TODOS
+     - incomplete
+     - update elements
 
