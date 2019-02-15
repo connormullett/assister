@@ -59,12 +59,9 @@ class TodoService:
         self.write_row(t)
 
     def write_row(self, t):
-        try:
-            with open(self.todo_file, 'a') as f:
-                writer = csv.writer(f, delimiter=',')
-                writer.writerow(t.__repr__())
-        except Exception as e:
-            self.w('An Error has occured' + e + '\nReinstall the program or run reset', 1)
+        with open(self.todo_file, 'a') as f:
+            writer = csv.writer(f, delimiter=',')
+            writer.writerow(t.__repr__())
 
 
     def read_todos(self):
@@ -90,11 +87,7 @@ class TodoService:
     def todo_delete(self, t):
 
         todos = self.read_todos()
-        try:
-            i = int(t)
-        except Exception:
-            print('{} is not a valid row identifier'.format(t))
-            sys.exit(0)
+        i = int(t)
 
         self.w(todos[i])
         try:

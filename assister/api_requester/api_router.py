@@ -9,11 +9,10 @@ class ApiRouter:
 
     def __init__(self, a):
         self.a = a
-        if len(a) == 3:
+        try:
             self.service = ApiService(self.a[0], self.a[1], self.a[2])
-        else:
+        except Exception:
             self.service = ApiService(self.a[0], self.a[1])
-        self.w = WriteOut()
 
 
     # TODO: manage post, get, put, del requests

@@ -14,11 +14,22 @@ Python CLI Tool to simplify computing and enhance productivity
 - virtualenv
 
 ## Install
+
+### Linux and macOS
+
 - `git clone https://github.com/connormullett/assister.git`
 - `cd assister`
 - `virtualenv -p {/path/to/python3} venv`
 - `source venv/bin/activate`
 - `sh install.sh`
+
+### Windows
+Perform the following commands in PowerShell
+- `git clone https://github.com/connormullett/assister.git`
+- `cd assister`
+- `python3 -m venv venv`
+- `./venv/Scripts/activate.ps1`
+- `./windows-install.sh`
 
 ### Dependancies are currently in the process of being removed and will
 ### no longer need a virtualenv
