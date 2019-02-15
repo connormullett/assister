@@ -12,18 +12,23 @@ parser = argparse.ArgumentParser(description='Productivity without a mouse')
 parser.add_argument('command', default=None, action='store', nargs='+')
 args = parser.parse_args()
 
-command = args.command[0]
-arguments = args.command[1:]
+def main():
+    command = args.command[0]
+    arguments = args.command[1:]
 
-command_mapper = {
-        'todo': TodoRouter(arguments),
-        'api': ApiRouter(arguments)
-        }
+    command_mapper = {
+            'todo': TodoRouter,
+            'api': ApiRouter
+            }
 
-if command == 'version':
-    sys.stdout.write(f'{VERSION}\n')
-    exit(0)
+    if command == 'version':
+        sys.stdout.write(f'{VERSION}\n')
+        exit(0)
 
-r = command_mapper[command]
-r()
+    r = command_mapper[command]
+    i = r(arguments)
+    i()
+
+if __name__ == '__main__':
+    main()
 

@@ -9,10 +9,7 @@ class ApiRouter:
 
     def __init__(self, a):
         self.a = a
-        try:
-            self.service = ApiService(self.a[0], self.a[1], self.a[2])
-        except Exception:
-            self.service = ApiService(self.a[0], self.a[1])
+        self.service = ApiService(self.a[0], self.a[1])
 
 
     # TODO: manage post, get, put, del requests
