@@ -14,7 +14,8 @@ def main():
 
     parser = argparse.ArgumentParser(description='Productivity without a mouse')
     parser.add_argument('command', default=None, action='store', nargs='+')
-    parser.add_argument('-p', '--progress', dest='p', default=None, action='store_true')
+    parser.add_argument('-p', '--progress', dest='p', default=False, action='store_true')
+    parser.add_argument('-g', '--greet', dest='g', default=False, action='store_true')
     args = parser.parse_args()
 
     command = args.command[0]
@@ -29,10 +30,11 @@ def main():
     if command == 'version':
         sys.stdout.write(f'ASSISTER VERSION | {VERSION}\n')
         exit(0)
+    if args.g:
+        user = os.getlogin()
+        print(f'Hello, {user}')
 
     r = command_mapper[command]
     i = r(arguments)
-    user = os.getlogin()
-    print(f'hello {user}')
     i()
 
