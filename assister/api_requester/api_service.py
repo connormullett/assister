@@ -29,8 +29,12 @@ class ApiService:
 
     def get(self):
         response = requests.get(self.url)
-        r = json.loads(response.text)
-        self.w(json.dumps(r, indent=4, sort_keys=True), 0)
+        try:
+            r = json.loads(response.text)
+            self.w(json.dumps(r, indent=4, sort_keys=True), 0)
+        except json.decoder.JSONDecodeError:
+            self.w(response.text)
+
 
     def post(self):
         pass

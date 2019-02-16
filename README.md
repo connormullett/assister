@@ -5,13 +5,13 @@ Python CLI Tool to simplify computing and enhance productivity
 
 ## Coming Soon
 - Todo
-- Calculator
-- Script Manager
+- Directory Building tool
+- API Consumption tool (similar to curl)
+- WebScraper
 
 ## Prerequisites
 - Git
 - Python3
-- virtualenv
 
 ## Install
 
@@ -27,17 +27,15 @@ You will also have a new `todo.csv` file in the project base directory. This wil
 
 ## Commands
 ### Example
-`assister -t create` 
+`assister todo create` 
 
-`-t` - manages todos
+`TODO` - manages todos
     - `view` - view todos
     - `del {todo_id}` - delete todo by id
     - `create` - create a todo using a series of prompts
     - `mc {todo_id}` - mark todo complete
     - `mi {todo_id}` - mark todo incomplete
-
-### Upcoming commands
--TODOS
-     - incomplete
-     - update elements
+`API` - consume APIS
+    - `get {url} {headers}` - perform a get request to target url
+    - Other commands are not complete
 
