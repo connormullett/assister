@@ -15,12 +15,12 @@ Python CLI Tool to simplify computing and enhance productivity
 
 ## Install
 
-- `git clone https://github.com/connormullett/assister.git`
-- `cd assister`
-- `sudo python3 setup.py install`
-- `sudo pip3 install -e .`
+`pip install assister`
 
-
+If you would like to contribute  
+- fork the repository and run the following commands after cloning
+- `python3 setup.py install`
+- `python3 setup.py -e .`
 
 Running the install steps will allow you to call `assister` from your terminal
 You will also have a new `todo.csv` file in the project base directory. This will hold all of the todos
