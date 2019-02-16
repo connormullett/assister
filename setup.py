@@ -7,7 +7,7 @@ setup(
         packages=['assister'],
         entry_points={
             'console_scripts': [
-                'assister=assister.__main__:main'
+                'ass=assister.__main__:main'
             ]
         }
     )

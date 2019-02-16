@@ -21,7 +21,7 @@ def main():
 
     command_mapper = {
             'todo': TodoRouter,
-            'api': ApiRouter
+            'api': ApiRouter,
             'dir': DirectoryRouter,
             }
 
