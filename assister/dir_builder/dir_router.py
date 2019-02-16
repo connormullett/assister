@@ -1,6 +1,5 @@
 
 import os
-# from tqdm import tqdm
 from .dir_service import DirectoryService
 
 

@@ -1,6 +1,0 @@
--e git+https://github.com/connormullett/assister.git@81aeae59e048b0894ec1c5de0551fc5bdc2796ce#egg=assister
-certifi==2018.11.29
-chardet==3.0.4
-idna==2.8
-requests==2.21.0
-urllib3==1.24.1
