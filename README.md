@@ -29,17 +29,17 @@ You will also have a new `todo.csv` file in the project base directory. This wil
 ### Examples
 example command - `ass todo create` 
 
-`TODO` manages todos
-    - `view` - view todos
-    - `del {todo_id}` - delete todo by id
-    - `create` - create a todo using a series of prompts
-    - `mc {todo_id}` - mark todo complete
-    - `mi {todo_id}` - mark todo incomplete
-`API` consume APIS
-    - `get {url} {headers}` - perform a get request to target url
-    - Other commands are not complete
-`DIR` build directories
-    - `dir {folder name} {files}`
-        - where files can be as many as needed
-    - Other commands coming soon
+`TODO` manages todos  
+    - `view` - view todos  
+    - `del {todo_id}` - delete todo by id  
+    - `create` - create a todo using a series of prompts  
+    - `mc {todo_id}` - mark todo complete  
+    - `mi {todo_id}` - mark todo incomplete  
+`API` consume APIS  
+    - `get {url} {headers}` - perform a get request to target url  
+    - Other commands are not complete  
+`DIR` build directories  
+    - `dir {folder name} {files}`  
+        - where files can be as many as needed  
+    - Other commands coming soon  
 
