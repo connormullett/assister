@@ -30,6 +30,7 @@ def main():
     if command == 'version':
         sys.stdout.write(f'ASSISTER VERSION | {VERSION}\n')
         exit(0)
+
     if args.g:
         user = os.getlogin()
         print(f'Hello, {user}')
