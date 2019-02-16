@@ -22,7 +22,7 @@ If you would like to contribute
 - `python3 setup.py install`
 - `python3 setup.py -e .`
 
-Running the install steps will allow you to call `assister` from your terminal
+Running the install steps will allow you to call `ass` from your terminal
 You will also have a new `todo.csv` file in the project base directory. This will hold all of the todos
 
 ## Commands
