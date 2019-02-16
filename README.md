@@ -27,7 +27,7 @@ You will also have a new `todo.csv` file in the project base directory. This wil
 
 ## Commands
 ### Example
-`assister todo create` 
+`ass todo create` 
 
 `TODO` - manages todos
     - `view` - view todos

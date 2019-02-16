@@ -2,6 +2,7 @@
 import argparse
 import sys
 import pkg_resources
+import os
 
 from .api_requester.api_router import ApiRouter
 from .todos.todo_router import TodoRouter
@@ -31,5 +32,7 @@ def main():
 
     r = command_mapper[command]
     i = r(arguments)
+    user = os.getlogin()
+    print(f'hello {user}')
     i()
 
