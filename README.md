@@ -5,7 +5,7 @@ Python CLI Tool to simplify computing and enhance productivity
 
 ## Coming Soon
 - [ ] WebScraper  
-- [ ]Folder remover
+- [ ] Folder remover
 
 ## Prerequisites
 - Git (if contributing)
