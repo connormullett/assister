@@ -26,8 +26,8 @@ Running the install steps will allow you to call `assister` from your terminal
 You will also have a new `todo.csv` file in the project base directory. This will hold all of the todos
 
 ## Commands
-### Example
-`ass todo create` 
+### Examples
+example command - `ass todo create` 
 
 `TODO` - manages todos
     - `view` - view todos
@@ -38,4 +38,7 @@ You will also have a new `todo.csv` file in the project base directory. This wil
 `API` - consume APIS
     - `get {url} {headers}` - perform a get request to target url
     - Other commands are not complete
+`DIR` - build directories
+    - `dir {folder name} {files}`
+        - where files can be as many as needed
 
