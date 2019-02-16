@@ -4,13 +4,11 @@
 Python CLI Tool to simplify computing and enhance productivity
 
 ## Coming Soon
-- Todo
-- Directory Building tool
-- API Consumption tool (similar to curl)
-- WebScraper
+- [ ] WebScraper
+- [ ]Folder remover
 
 ## Prerequisites
-- Git
+- Git (if contributing)
 - Python3
 
 ## Install
@@ -22,8 +20,7 @@ If you would like to contribute
 - `python3 setup.py install`
 - `python3 setup.py -e .`
 
-Running the install steps will allow you to call `assister` from your terminal
-You will also have a new `todo.csv` file in the project base directory. This will hold all of the todos
+Running the install steps will allow you to call `ass` from your terminal
 
 ## Commands
 ### Examples
@@ -35,9 +32,11 @@ example command - `ass todo create`
     - `create` - create a todo using a series of prompts  
     - `mc {todo_id}` - mark todo complete  
     - `mi {todo_id}` - mark todo incomplete  
-- `API` consume APIS  
-    - `get {url} {headers}` - perform a get request to target url  
-    - Other commands are not complete  
+- `API` consume APIS, Headers optional
+    - `get {url} {headers}`
+    - `post {url} {body} {headers}`
+    - `put {url} {body} {headers}`
+    - `del {url} {body} {headers}`
 - `DIR` build directories  
     - `dir {folder name} {files}`  
         - where files can be as many as needed  

@@ -8,5 +8,9 @@ class Todo:
         self.due = due
 
     def __repr__(self):
-        return self.title, self.content, self.complete, self.due
+        if self.complete:
+            status = 'Complete'
+        else:
+            status = 'Incomplete'
+        return self.title, self.content, status, self.due
 
