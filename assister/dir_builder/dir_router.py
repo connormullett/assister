@@ -1,6 +1,6 @@
 
 import sys
-from dir_service import DirectoryService
+from .dir_service import DirectoryService
 
 
 class DirectoryRouter:
