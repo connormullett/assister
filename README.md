@@ -4,7 +4,7 @@
 Python CLI Tool to simplify computing and enhance productivity
 
 ## Coming Soon
-- [ ] WebScraper
+- [ ] WebScraper  
 - [ ]Folder remover
 
 ## Prerequisites
