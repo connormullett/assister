@@ -2,9 +2,9 @@
 from setuptools import setup
 
 setup(
-        name='cm-assister',
+        name='assister',
         author='Connor Mullett',
-        version='1.0.2',
+        version='1.0.4',
         description='Simple Assister CLI, https://github.com/connormullett/assister',
         packages=['assister/todos', 'assister/api_requester', 'assister/dir_builder'],
         include_package_data=True,

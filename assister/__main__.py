@@ -10,7 +10,10 @@ from .dir_builder.dir_router import DirectoryRouter
 
 def main():
 
-    VERSION = pkg_resources.require('assister')[0].version
+    try:
+        VERSION = pkg_resources.require('assister')[0].version
+    except pkg_resources.DistrobutionNotFound:
+        VERSION = '1.0.4'
 
     parser = argparse.ArgumentParser(description='Productivity without a mouse')
     parser.add_argument('command', default=None, action='store', nargs='+')
