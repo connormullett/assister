@@ -7,6 +7,7 @@ import os
 from .api_requester.api_router import ApiRouter
 from .todos.todo_router import TodoRouter
 from .dir_builder.dir_router import DirectoryRouter
+from .scraper.scraper_router import ScraperRouter
 
 def main():
 
@@ -28,6 +29,7 @@ def main():
             'todo': TodoRouter,
             'api': ApiRouter,
             'dir': DirectoryRouter,
+            'scrape': ScraperRouter,
             }
 
     if command == 'version':

@@ -1,8 +1,8 @@
 
 import requests
 import sys
+import bs4
 
-from bs4 import BeatifulSoup
 from tqdm import tqdm
 from ..base_models import WriteOut
 
@@ -14,7 +14,7 @@ class ScraperService:
 
     def __init__(self, url):
         response = requests.get(url)
-        self.b = BeautifulSoup(response.text, features='html.parser')
+        self.b = bs4.BeautifulSoup(response.text, features='html.parser')
         self.w = WriteOut()
 
         self.command_mapper = {
