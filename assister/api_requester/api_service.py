@@ -19,7 +19,7 @@ class ApiService:
 
     def __call__(self):
 
-        # TODO: Add header Functionality for Post, Put, and Del methods
+        # TODO: Add header Functionality
         method_mapper = {
                     'get': self.get,
                     'post': self.post,
@@ -30,7 +30,7 @@ class ApiService:
         m = method_mapper[self.request_method]
         m()
 
-    def wrap_json(response):
+    def wrap_json(self, response):
         try:
             r = json.loads(response.text)
             self.w(json.dumps(r, indent=4, sort_keys=True), 0)
@@ -38,11 +38,8 @@ class ApiService:
             self.w(response.text, 0)
 
     def get(self):
-        if not self.headers:
-            response = requests.get(self.url)
-        else:
-            response = requests.get(self.url, headers=self.headers)
-        wrap_json(response)
+        response = requests.get(self.url)
+        self.wrap_json(response)
 
 
     def post(self):
