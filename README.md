@@ -13,9 +13,9 @@ Python CLI Tool to simplify computing and enhance productivity
 
 ## Install
 
-`$ git clone https://github.com/connormullett/assister.git`
-`$ cd assister`
-`$ pip install -e .`
+- `$ git clone https://github.com/connormullett/assister.git`
+- `$ cd assister`
+- `$ pip install -e .`
 
 If you would like to contribute  
 - fork the repository and run the following commands after cloning
